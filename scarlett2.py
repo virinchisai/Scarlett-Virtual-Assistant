@@ -51,12 +51,21 @@ def takeCommand():
     return query
 
 def sendEmail(to, content):
-    server = smtplib.SMTP('smtp.gmail.com', 587)
-    server.ehlo()
-    server.starttls()
-    server.login('scarlettvirtualai@gmail.com', 'scarlett!123#')
-    server.sendmail('scarlettvirtualai@gmail.com', to, content)
-    server.close()
+    username = os.getenv("SCARLETT_SMTP_USERNAME")
+    password = os.getenv("SCARLETT_SMTP_PASSWORD")
+    if not username or not password:
+        raise RuntimeError(
+            "Set SCARLETT_SMTP_USERNAME and SCARLETT_SMTP_PASSWORD before sending email"
+        )
+
+    host = os.getenv("SCARLETT_SMTP_HOST", "smtp.gmail.com")
+    port = int(os.getenv("SCARLETT_SMTP_PORT", "587"))
+    with smtplib.SMTP(host, port) as server:
+        server.ehlo()
+        server.starttls()
+        server.ehlo()
+        server.login(username, password)
+        server.sendmail(username, to, content)
 
 #def exit():
 #    return
