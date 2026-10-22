@@ -49,10 +49,26 @@ flowchart LR
 
 ```bash
 pip install SpeechRecognition pyttsx3 pyaudio wikipedia
-python scarlett.py
+python scarlett2.py
 ```
 
 Say "Hello Scarlett" to wake it.
+
+### Email configuration
+
+Email sending is optional. Configure SMTP credentials in your shell before
+starting Scarlett. For Gmail, use an app password instead of your account
+password.
+
+```bash
+export SCARLETT_SMTP_USERNAME="your-email@gmail.com"
+export SCARLETT_SMTP_PASSWORD="your-app-password"
+python scarlett2.py
+```
+
+Optional `SCARLETT_SMTP_HOST` and `SCARLETT_SMTP_PORT` variables default to
+`smtp.gmail.com` and `587`. Never commit credentials or a populated `.env`
+file.
 
 ## 📜 License
 MIT
